@@ -92,7 +92,7 @@ class MainActivity : ComponentActivity() {
         connection.doOutput = true
 
         val jsonInputString =
-            """{"are_consents_accepted":false,"are_legal_conditions_accepted":true,"email":${Constants.username},"password":${Constants.password}"}"""
+            """{"are_consents_accepted":false,"are_legal_conditions_accepted":true,"email":"${Constants.username}","password":"${Constants.password}"}"""
 
         OutputStreamWriter(connection.outputStream, "UTF-8").use { writer ->
             writer.write(jsonInputString)
@@ -169,7 +169,7 @@ class MainActivity : ComponentActivity() {
 
                 println("Response : $response")
                 // Find the qr_code value using a regular expression
-                val regex = """"qr_code":\s*"([^"]*)"""".toRegex()
+                val regex = """qr_code":\s*"([^"]*)",""".toRegex()
                 val matchResult = regex.find(response.toString())
                 val qrCode = matchResult?.groups?.get(1)?.value
                 if (qrCode != null) {
